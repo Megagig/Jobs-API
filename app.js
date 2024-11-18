@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
   res.send('jobs api');
 });
 
-app.use('/api/v1', authRouter);
+app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', jobRouter);
 
 app.use(notFoundMiddleware);
@@ -32,11 +32,17 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
-    app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`)
-    );
+    // Connect to the database
+    await connectDB(process.env.MONGODB_URI);
+    console.log('Database connection established');
+
+    // Start the server
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
   } catch (error) {
-    console.log(error);
+    console.error('Error starting the application:', error);
+    process.exit(1); // Exit the process if there is an error
   }
 };
 
