@@ -3,6 +3,13 @@ require('express-async-errors');
 const express = require('express');
 const app = express();
 
+//MongoDb connection
+const connectDB = require('./db/connect');
+
+// Routes
+const authRouter = require('./routes/auth');
+const jobRouter = require('./routes/jobs');
+
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
@@ -14,6 +21,9 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('jobs api');
 });
+
+app.use('/api/v1', authRouter);
+app.use('/api/v1/jobs', jobRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
