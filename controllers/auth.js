@@ -3,6 +3,7 @@ const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError } = require('../errors');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const Register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -21,9 +22,20 @@ const Register = async (req, res) => {
 
   const user = await User.create({ name, email, password: hashedPassword });
 
+  //create a token
+  const token = jwt.sign(
+    { userId: user._id, name: user.name },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '30d',
+    }
+  );
+
   //return the new user
 
-  res.status(StatusCodes.CREATED).json({ user });
+  res
+    .status(StatusCodes.CREATED)
+    .json({ user: { name: user.name, email: user.email }, token });
 };
 
 const Login = async (req, res) => {
