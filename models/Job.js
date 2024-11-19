@@ -10,6 +10,7 @@ const JobSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
+      maxlength: 200,
     },
     position: {
       type: String,
@@ -42,10 +43,7 @@ const JobSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    date: {
-      type: Date,
-      default: Date.now,
-    },
+
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
