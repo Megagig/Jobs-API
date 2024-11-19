@@ -1,5 +1,5 @@
 const createJob = async (req, res) => {
-  res.send('Create Job');
+  res.json(req.user);
 };
 
 const getJobs = async (req, res) => {
