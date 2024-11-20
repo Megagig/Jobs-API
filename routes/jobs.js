@@ -11,7 +11,7 @@ const {
 
 router.post('/', createJob);
 router.get('/:id', getJobs);
-router.get('/all', getAllJob);
+router.get('/', getAllJob);
 router.patch('/:id', updateJob);
 router.delete('/:id', deleteJob);
 module.exports = router; // Export the router
