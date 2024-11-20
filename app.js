@@ -7,11 +7,23 @@ const cors = require('cors');
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
+//swagger
+const swaggerUi = require('swagger-ui-express');
+
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+
 const express = require('express');
 const app = express();
 
 //MongoDb connection
 const connectDB = require('./db/connect');
+
+app.get('/', (req, res) => {
+  res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
+});
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routes
 const authRouter = require('./routes/auth');

@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "43b2b070-4a6c-425c-9869-e012e4832673",
+		"name": "Jobs API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26434084"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json()",
+									"",
+									"pm.globals.set(\"accessToken\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Megagig\",\n    \"email\": \"megagig@gmail.com\",\n    \"password\":\"123456\"\n \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json()",
+									"",
+									"pm.globals.set(\"accessToken\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"megagig@gmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jobs",
+			"item": [
+				{
+					"name": "Create  A Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzNjYzQzYTRhYTljMWM1ZTllNGY5MzMiLCJuYW1lIjoiQXVzdGluIiwiZW1haWwiOiJhdXN0aW5AZ21haWwuY29tIiwiaWF0IjoxNzMyMDM1NjQzLCJleHAiOjE3MzQ2Mjc2NDN9.7LgLQl_U-5E8c4IBAPBl4VhfEQAhwwsUiJd_SovFHWA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company\": \"Obitex Electronics\",\n    \"description\": \"Electronics\",\n    \"position\": \"CEO\",\n    \"location\": \"OTA\",\n    \"salary\": 10000,\n    \"jobType\": \"Sales\",\n    \"experience\": \"2 years experience\",\n    \"skills\": \"Management\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/jobs",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Jobs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzNjYzQzYTRhYTljMWM1ZTllNGY5MzMiLCJuYW1lIjoiQXVzdGluIiwiZW1haWwiOiJhdXN0aW5AZ21haWwuY29tIiwiaWF0IjoxNzMyMDk0NzM3LCJleHAiOjE3MzQ2ODY3Mzd9.qWvaO8pl6BkkZABf29bXphofaTaGDjhTqGrwkBzlJhs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/jobs/673ddbeba9291103e2787aea",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"jobs",
+								"673ddbeba9291103e2787aea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get A Single Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzNjYzQzYTRhYTljMWM1ZTllNGY5MzMiLCJuYW1lIjoiQXVzdGluIiwiZW1haWwiOiJhdXN0aW5AZ21haWwuY29tIiwiaWF0IjoxNzMyMDk0NzM3LCJleHAiOjE3MzQ2ODY3Mzd9.qWvaO8pl6BkkZABf29bXphofaTaGDjhTqGrwkBzlJhs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/jobs/673dd1dea9291103e2787ae3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"jobs",
+								"673dd1dea9291103e2787ae3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update A Single Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzNjYzQzYTRhYTljMWM1ZTllNGY5MzMiLCJuYW1lIjoiQXVzdGluIiwiZW1haWwiOiJhdXN0aW5AZ21haWwuY29tIiwiaWF0IjoxNzMyMDk0NzM3LCJleHAiOjE3MzQ2ODY3Mzd9.qWvaO8pl6BkkZABf29bXphofaTaGDjhTqGrwkBzlJhs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company\": \"Megagig\",\n    \"position\": \"CEO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/jobs/673dd1dea9291103e2787ae3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"jobs",
+								"673dd1dea9291103e2787ae3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzNjYzQzYTRhYTljMWM1ZTllNGY5MzMiLCJuYW1lIjoiQXVzdGluIiwiZW1haWwiOiJhdXN0aW5AZ21haWwuY29tIiwiaWF0IjoxNzMyMDk0NzM3LCJleHAiOjE3MzQ2ODY3Mzd9.qWvaO8pl6BkkZABf29bXphofaTaGDjhTqGrwkBzlJhs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company\": \"Megagig\",\n    \"position\": \"CEO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/jobs/673ddbeba9291103e2787aea",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"jobs",
+								"673ddbeba9291103e2787aea"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
